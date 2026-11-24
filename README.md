@@ -122,3 +122,72 @@ established fact.
   two lines), DejaVu Sans for summaries (11pt down to 9pt, two
   lines). Headline and summary text shrink to fit rather than
   wrapping or overflowing the cell.
+
+## Verifying the numbers
+
+Every figure printed on the page can be traced back to the story
+it belongs to, so a reader can check each one without taking the
+page's word for it:
+
+- The lead counts two Patriot radars: that is the number in the
+  Revolutionary Guard's own claim, while Bahrain's version of the
+  same event is one civilian site on Sitra Island and two people
+  wounded. Both versions are named in the story list above, and
+  the page prints the claim as a claim.
+- "At least 15" for Kyiv is a floor, not a final toll — the
+  wording on the page keeps the "at least", because the count was
+  still moving when the reports came in.
+- The Java fire is 24 dead with 34 more missing; the Himalayan
+  floods are 4 dead with around 100 missing. The two figures are
+  kept apart on purpose: a death toll and a missing count are
+  different things, and the page never merges them into one number.
+- The $5.17M is the winner's cheque for the ATP Finals, paired
+  with the 6–2, 7–6 scoreline, both from the tournament's own
+  reporting. The 9–6 is the ICJ vote on the Myanmar genocide
+  case — the first time the court has held a state responsible
+  for genocide.
+- The 50 million is the number of children in Bangladesh's
+  typhoid vaccination drive, described by its organisers as the
+  largest drive of its kind anywhere.
+
+## Reproducing the entry
+
+From a clean checkout, the committed `entry.png` can be rebuilt
+exactly. The build needs nothing beyond Python 3.12 and Pillow:
+
+```sh
+git clone https://github.com/Tenguu0/news-image-20261124-v11-photo-evening.git
+cd news-image-20261124-v11-photo-evening
+MAKEFUN_OUTPUT_DIR=/tmp/v11-check1 python3 main.py
+MAKEFUN_OUTPUT_DIR=/tmp/v11-check2 python3 main.py
+sha256sum /tmp/v11-check1/entry.png /tmp/v11-check2/entry.png entry.png
+```
+
+The reference hash is
+`c376a1383ccf13a8660686e0983575ca7fd275cd7dab584f1784df96ed1c1e2e`.
+All three hashes should be identical. If a hash differs, the first
+things to check are the `assets/` folder (all twelve pictures must
+be present) and the Pillow version, since the layout depends on
+the fonts Pillow finds on the system.
+
+## Editorial choices
+
+- Pictures lead, words follow: this is an evening edition, so
+  the reader meets the picture of each story before its headline.
+  The lead panorama is the widest picture on the page because the
+  Bahrain strike is the day's biggest story, and a night-time
+  airbase scene reads best at that size.
+- The "Day in Numbers" box exists because the grid had one slot
+  left and a list of bare figures fills it better than a
+  thirteenth small story would. The four numbers in it are the
+  ones a reader is most likely to remember the next morning: two
+  death tolls, one record prize, and one vaccination drive.
+- Claims stay attached to whoever made them. The Tehran claim,
+  the Kyiv claim about the warship, and Bahrain's account of the
+  same strike are all printed with their claimant named, and
+  Moscow's silence on the ship claim is noted rather than filled
+  in with a guess.
+- The footer is honest about the pictures: every one of them is
+  an AI-generated illustration matched to its story, and the page
+  says so in plain words instead of passing them off as
+  photographs.
